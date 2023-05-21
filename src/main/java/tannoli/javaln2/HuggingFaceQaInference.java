@@ -10,11 +10,10 @@ import ai.djl.translate.TranslateException;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,14 +23,16 @@ public class HuggingFaceQaInference {
 
     @PostMapping(value = "/api/answer", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public String input(@RequestBody String[] computevalues)
+    public String input(@RequestBody Map<String, String> payload)
             throws IOException, TranslateException, ModelException {
-        QAInput input = new QAInput(computevalues[0], computevalues[1]);
-        String answer = HuggingFaceQaInference.qa_predict(input);
-        return ("The answer is: \n" + answer);
+        String paragraph = payload.get("paragraph");
+        String question = payload.get("question");
+        QAInput input = new QAInput(question, paragraph);
+        String answer = HuggingFaceQaInference.qapredict(input);
+        return "The answer is:\n" + answer;
     }
 
-    public static String qa_predict(QAInput input) throws IOException, TranslateException, ModelException {
+    public static String qapredict(QAInput input) throws IOException, TranslateException, ModelException {
         BertTranslator translator = new BertTranslator();
         Criteria<QAInput, String> criteria = Criteria.builder()
                 .setTypes(QAInput.class, String.class)
