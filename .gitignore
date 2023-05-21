@@ -31,5 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-src/main/resources/bert-base-cased-vocab.txt
-src/main/resources/trace_cased_bertqa.pt
