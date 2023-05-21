@@ -1,0 +1,2 @@
+trace_cased_bertqa.pt filter=lfs diff=lfs merge=lfs -text
+bert-base-cased-vocab.txt filter=lfs diff=lfs merge=lfs -text
