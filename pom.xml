@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>ai.djl.pytorch</groupId>
 			<artifactId>pytorch-native-cpu</artifactId>
-			<classifier>win-x86_64</classifier>
+			<classifier>linux-x86_64</classifier>
 			<scope>runtime</scope>
 			<version>1.13.1</version>
 		</dependency>
