@@ -2,7 +2,7 @@ function compute() {
     const paragraph = document.getElementById("paragraph").value;
     const question = document.getElementById("question").value;
     const payload = { paragraph: paragraph, question: question };
-    
+
     fetch('/api/answer', {
         method: 'POST',
         headers: {
@@ -10,11 +10,5 @@ function compute() {
         },
         body: JSON.stringify(payload)
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.answer);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
+        .then(console.log(response))
+};

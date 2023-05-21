@@ -29,6 +29,7 @@ public class HuggingFaceQaInference {
         String question = payload.get("question");
         QAInput input = new QAInput(question, paragraph);
         String answer = HuggingFaceQaInference.qapredict(input);
+        System.out.println("Test");
         return "The answer is:\n" + answer;
     }
 
