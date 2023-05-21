@@ -11,20 +11,22 @@ import ai.djl.translate.TranslateException;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 
 public class HuggingFaceQaInference {
 
-    @PostMapping(value = "/api/answer", produces = "text/plain")
-    public String input(@RequestParam("paragraph") String paragraph, @RequestParam("question") String question)
+    @PostMapping(value = "/api/answer", consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public String input(@RequestBody String[] computevalues)
             throws IOException, TranslateException, ModelException {
-        System.out.println("Test");
-        QAInput input = new QAInput(question, paragraph);
+        QAInput input = new QAInput(computevalues[0], computevalues[1]);
         String answer = HuggingFaceQaInference.qa_predict(input);
         return ("The answer is: \n" + answer);
     }

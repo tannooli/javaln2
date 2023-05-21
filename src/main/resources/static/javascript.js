@@ -1,10 +1,14 @@
 function compute() {
+    const paragraph = document.getElementById("paragraph").value;
+    const question = document.getElementById("question").value;
+    const payload = [paragraph, question];
+
     fetch('/api/answer', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ paragraph: document.getElementById("paragraph").value, question: document.getElementById("question").value })
+        body: JSON.stringify(payload)
     })
         .then(response => response.json())
         .then(data => {
