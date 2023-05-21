@@ -10,12 +10,15 @@ import ai.djl.translate.TranslateException;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 
 @RestController
 
@@ -29,8 +32,14 @@ public class HuggingFaceQaInference {
         String question = payload.get("question");
         QAInput input = new QAInput(question, paragraph);
         String answer = HuggingFaceQaInference.qapredict(input);
+        // Create a JSON object to hold the answer
+        Map<String, String> response = new HashMap<>();
+        response.put("answer", answer);
+        // Convert the JSON object to a string
+        Gson gson = new Gson();
+        String jsonResponse = gson.toJson(response);
         System.out.println("Test");
-        return "The answer is:\n" + answer;
+        return jsonResponse;
     }
 
     public static String qapredict(QAInput input) throws IOException, TranslateException, ModelException {
