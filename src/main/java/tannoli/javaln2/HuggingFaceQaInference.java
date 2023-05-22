@@ -38,7 +38,7 @@ public class HuggingFaceQaInference {
         // Convert the JSON object to a string
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(response);
-        System.out.println("Test");
+        // System.out.println("Test");
         return jsonResponse;
     }
 
